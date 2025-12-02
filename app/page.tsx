@@ -267,173 +267,110 @@ function MagicCircles() {
   );
 }
 
-// 🎲 DÉ D20 EN 3D RÉALISTE !
+// 🎲 DÉ D20 STYLISÉ ET PROPRE
 function D20Dice3D() {
   return (
-    <div className="relative w-32 h-32" style={{ perspective: '600px' }}>
+    <div className="relative w-36 h-36" style={{ perspective: '800px' }}>
       {/* Glow effect behind */}
       <div 
-        className="absolute inset-0 rounded-full blur-2xl animate-pulse-slow"
+        className="absolute inset-0 blur-3xl animate-pulse-slow"
         style={{
-          background: 'radial-gradient(circle, rgba(212,168,83,0.6) 0%, rgba(212,168,83,0.2) 50%, transparent 70%)',
-          transform: 'scale(1.5)',
+          background: 'radial-gradient(circle, rgba(212,168,83,0.5) 0%, rgba(155,77,255,0.2) 50%, transparent 70%)',
+          transform: 'scale(2)',
         }}
       />
       
-      {/* 3D Dice container */}
+      {/* 3D Dice container - Single clean face that rotates */}
       <div 
         className="relative w-full h-full"
         style={{
           transformStyle: 'preserve-3d',
-          animation: 'diceRotate3D 8s ease-in-out infinite',
+          animation: 'diceFloat 4s ease-in-out infinite',
         }}
       >
-        {/* Face 1 - Front */}
+        {/* Main visible face */}
         <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
+          className="absolute inset-0 flex items-center justify-center"
           style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3), 0 0 20px rgba(212,168,83,0.2)',
+            background: 'linear-gradient(145deg, #2a2018 0%, #1a1410 50%, #0f0c0a 100%)',
+            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
+            boxShadow: `
+              inset 2px 2px 20px rgba(212,168,83,0.2),
+              inset -2px -2px 20px rgba(0,0,0,0.5),
+              0 0 40px rgba(212,168,83,0.3)
+            `,
+            animation: 'diceRotateSmooth 6s ease-in-out infinite',
+            transformStyle: 'preserve-3d',
           }}
         >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
+          {/* Inner hexagon border */}
+          <div 
+            className="absolute inset-3 flex items-center justify-center"
             style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
+              clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
+              border: '2px solid transparent',
+              background: `linear-gradient(#1a1410, #1a1410) padding-box,
+                          linear-gradient(135deg, #d4a853 0%, #f0d078 25%, #d4a853 50%, #b8860b 75%, #d4a853 100%) border-box`,
+            }}
+          />
+          
+          {/* Corner accents */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#d4a853] rounded-full opacity-60" />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#d4a853] rounded-full opacity-60" />
+          
+          {/* Number */}
+          <span 
+            className="relative z-10 font-[var(--font-cinzel)] text-5xl font-bold select-none"
+            style={{
+              background: 'linear-gradient(180deg, #f0d078 0%, #d4a853 40%, #b8860b 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 0 10px rgba(212,168,83,0.8))',
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5)) drop-shadow(0 0 20px rgba(212,168,83,0.5))',
+              textShadow: '0 0 30px rgba(212,168,83,0.8)',
             }}
           >
             20
           </span>
         </div>
 
-        {/* Face 2 - Back */}
+        {/* Subtle 3D depth layers */}
         <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
+          className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'rotateY(180deg) translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3)',
+            background: 'linear-gradient(145deg, #1a1410 0%, #0a0908 100%)',
+            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
+            transform: 'translateZ(-10px) scale(1.02)',
+            opacity: 0.8,
           }}
-        >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            1
-          </span>
-        </div>
-
-        {/* Face 3 - Left */}
+        />
         <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
+          className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'rotateY(-90deg) translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3)',
+            background: 'linear-gradient(145deg, #0f0c0a 0%, #050403 100%)',
+            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
+            transform: 'translateZ(-20px) scale(1.04)',
+            opacity: 0.6,
           }}
-        >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            13
-          </span>
-        </div>
-
-        {/* Face 4 - Right */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
-          style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'rotateY(90deg) translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3)',
-          }}
-        >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            8
-          </span>
-        </div>
-
-        {/* Face 5 - Top */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
-          style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'rotateX(90deg) translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3)',
-          }}
-        >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            17
-          </span>
-        </div>
-
-        {/* Face 6 - Bottom */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center dice-face"
-          style={{
-            background: 'linear-gradient(135deg, #1a1410 0%, #2a2018 50%, #1a1410 100%)',
-            border: '2px solid #d4a853',
-            clipPath: 'polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)',
-            transform: 'rotateX(-90deg) translateZ(40px)',
-            boxShadow: 'inset 0 0 30px rgba(212,168,83,0.3)',
-          }}
-        >
-          <span 
-            className="font-[var(--font-cinzel)] text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #f0d078 0%, #d4a853 50%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            4
-          </span>
-        </div>
+        />
       </div>
 
-      {/* Reflection/shadow on surface */}
+      {/* Shadow on surface */}
       <div 
-        className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-20 h-4 rounded-full blur-md"
+        className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-24 h-6 rounded-full blur-xl opacity-60"
         style={{
-          background: 'radial-gradient(ellipse, rgba(212,168,83,0.4) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%)',
+          animation: 'shadowPulse 4s ease-in-out infinite',
         }}
+      />
+      
+      {/* Sparkle effects */}
+      <div 
+        className="absolute top-2 right-4 w-1 h-1 bg-[#f0d078] rounded-full"
+        style={{ animation: 'sparkle 2s ease-in-out infinite' }}
+      />
+      <div 
+        className="absolute bottom-8 left-6 w-1 h-1 bg-[#f0d078] rounded-full"
+        style={{ animation: 'sparkle 2s ease-in-out infinite 0.5s' }}
       />
     </div>
   );
