@@ -153,229 +153,6 @@ function LightMist() {
   );
 }
 
-// ============================================
-// SECTION MAGIQUE - Tous les effets épiques
-// ============================================
-
-// Magical particles component
-function MagicParticles() {
-  const [particles] = useState(() =>
-    Array.from({ length: 60 }, (_, i) => ({
-      id: i,
-      size: Math.random() * 6 + 2,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: Math.random() * 10 + 5,
-      delay: Math.random() * 5,
-      type: Math.random() > 0.5 ? 'gold' : 'magic',
-    }))
-  );
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className={`particle ${p.type === 'gold' ? 'particle-gold' : 'particle-magic'}`}
-          style={{
-            width: p.size,
-            height: p.size,
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            animation: `twinkle ${p.duration}s ease-in-out ${p.delay}s infinite`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-// Ember particles component
-function EmberParticles() {
-  const [embers] = useState(() =>
-    Array.from({ length: 40 }, (_, i) => ({
-      id: i,
-      left: 30 + Math.random() * 40,
-      delay: Math.random() * 4,
-      duration: Math.random() * 3 + 2,
-      drift: (Math.random() - 0.5) * 80,
-      size: Math.random() * 5 + 2,
-    }))
-  );
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {embers.map((e) => (
-        <div
-          key={e.id}
-          className="ember"
-          style={{
-            left: `${e.left}%`,
-            bottom: '20%',
-            width: e.size,
-            height: e.size,
-            animationDelay: `${e.delay}s`,
-            animationDuration: `${e.duration}s`,
-            '--drift': `${e.drift}px`,
-          } as React.CSSProperties}
-        />
-      ))}
-    </div>
-  );
-}
-
-// Magic circles component
-function MagicCircles() {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-      <div 
-        className="magic-circle absolute"
-        style={{
-          width: '500px',
-          height: '500px',
-          animation: 'magicCircleRotate 30s linear infinite, magicCirclePulse 4s ease-in-out infinite',
-        }}
-      />
-      <div 
-        className="magic-circle absolute"
-        style={{
-          width: '380px',
-          height: '380px',
-          animation: 'magicCircleRotate 20s linear infinite reverse, magicCirclePulse 3s ease-in-out infinite',
-          animationDelay: '1s',
-        }}
-      />
-      <div 
-        className="magic-circle absolute"
-        style={{
-          width: '260px',
-          height: '260px',
-          animation: 'magicCircleRotate 15s linear infinite, magicCirclePulse 2s ease-in-out infinite',
-          animationDelay: '2s',
-        }}
-      />
-      <div 
-        className="magic-circle absolute"
-        style={{
-          width: '140px',
-          height: '140px',
-          animation: 'magicCircleRotate 10s linear infinite reverse, magicCirclePulse 1.5s ease-in-out infinite',
-          animationDelay: '0.5s',
-        }}
-      />
-    </div>
-  );
-}
-
-// 🎲 DÉ D20 STYLISÉ ET PROPRE
-function D20Dice3D() {
-  return (
-    <div className="relative w-36 h-36" style={{ perspective: '800px' }}>
-      {/* Glow effect behind */}
-      <div 
-        className="absolute inset-0 blur-3xl animate-pulse-slow"
-        style={{
-          background: 'radial-gradient(circle, rgba(212,168,83,0.5) 0%, rgba(155,77,255,0.2) 50%, transparent 70%)',
-          transform: 'scale(2)',
-        }}
-      />
-      
-      {/* 3D Dice container - Single clean face that rotates */}
-      <div 
-        className="relative w-full h-full"
-        style={{
-          transformStyle: 'preserve-3d',
-          animation: 'diceFloat 4s ease-in-out infinite',
-        }}
-      >
-        {/* Main visible face */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            background: 'linear-gradient(145deg, #2a2018 0%, #1a1410 50%, #0f0c0a 100%)',
-            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
-            boxShadow: `
-              inset 2px 2px 20px rgba(212,168,83,0.2),
-              inset -2px -2px 20px rgba(0,0,0,0.5),
-              0 0 40px rgba(212,168,83,0.3)
-            `,
-            animation: 'diceRotateSmooth 6s ease-in-out infinite',
-            transformStyle: 'preserve-3d',
-          }}
-        >
-          {/* Inner hexagon border */}
-          <div 
-            className="absolute inset-3 flex items-center justify-center"
-            style={{
-              clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
-              border: '2px solid transparent',
-              background: `linear-gradient(#1a1410, #1a1410) padding-box,
-                          linear-gradient(135deg, #d4a853 0%, #f0d078 25%, #d4a853 50%, #b8860b 75%, #d4a853 100%) border-box`,
-            }}
-          />
-          
-          {/* Corner accents */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#d4a853] rounded-full opacity-60" />
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#d4a853] rounded-full opacity-60" />
-          
-          {/* Number */}
-          <span 
-            className="relative z-10 font-[var(--font-cinzel)] text-5xl font-bold select-none"
-            style={{
-              background: 'linear-gradient(180deg, #f0d078 0%, #d4a853 40%, #b8860b 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5)) drop-shadow(0 0 20px rgba(212,168,83,0.5))',
-              textShadow: '0 0 30px rgba(212,168,83,0.8)',
-            }}
-          >
-            20
-          </span>
-        </div>
-
-        {/* Subtle 3D depth layers */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(145deg, #1a1410 0%, #0a0908 100%)',
-            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
-            transform: 'translateZ(-10px) scale(1.02)',
-            opacity: 0.8,
-          }}
-        />
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(145deg, #0f0c0a 0%, #050403 100%)',
-            clipPath: 'polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)',
-            transform: 'translateZ(-20px) scale(1.04)',
-            opacity: 0.6,
-          }}
-        />
-      </div>
-
-      {/* Shadow on surface */}
-      <div 
-        className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-24 h-6 rounded-full blur-xl opacity-60"
-        style={{
-          background: 'radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%)',
-          animation: 'shadowPulse 4s ease-in-out infinite',
-        }}
-      />
-      
-      {/* Sparkle effects */}
-      <div 
-        className="absolute top-2 right-4 w-1 h-1 bg-[#f0d078] rounded-full"
-        style={{ animation: 'sparkle 2s ease-in-out infinite' }}
-      />
-      <div 
-        className="absolute bottom-8 left-6 w-1 h-1 bg-[#f0d078] rounded-full"
-        style={{ animation: 'sparkle 2s ease-in-out infinite 0.5s' }}
-      />
-    </div>
-  );
-}
-
 // Subtle particles for values section
 function SubtleParticles() {
   const [particles] = useState(() =>
@@ -408,43 +185,6 @@ function SubtleParticles() {
   );
 }
 
-// Central magical orb
-function MagicOrb() {
-  return (
-    <div className="relative">
-      {/* Outer glow */}
-      <div 
-        className="absolute inset-0 rounded-full blur-3xl animate-pulse-slow"
-        style={{
-          background: 'radial-gradient(circle, rgba(155,77,255,0.4) 0%, rgba(74,158,255,0.2) 50%, transparent 70%)',
-          transform: 'scale(2)',
-        }}
-      />
-      {/* Main orb */}
-      <div 
-        className="w-40 h-40 rounded-full animate-orb relative"
-        style={{
-          background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, rgba(155,77,255,0.6) 30%, rgba(74,158,255,0.4) 60%, rgba(212,168,83,0.3) 100%)',
-          boxShadow: '0 0 60px rgba(155,77,255,0.6), 0 0 120px rgba(74,158,255,0.4), inset 0 0 60px rgba(255,255,255,0.2)',
-        }}
-      >
-        {/* Inner light */}
-        <div 
-          className="absolute top-4 left-6 w-8 h-8 rounded-full bg-white/40 blur-sm"
-        />
-        {/* Swirling energy */}
-        <div 
-          className="absolute inset-2 rounded-full opacity-30"
-          style={{
-            background: 'conic-gradient(from 0deg, transparent, rgba(155,77,255,0.8), transparent, rgba(74,158,255,0.8), transparent)',
-            animation: 'magicCircleRotate 4s linear infinite',
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0908]">
@@ -454,12 +194,12 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* 🖼️ IMAGE DE FOND FULLSCREEN */}
         <div className="absolute inset-0">
-          <Image
+        <Image
             src="/image/jdr.png"
             alt="Aventurier devant un château"
             fill
             className="object-cover object-center"
-            priority
+          priority
             quality={100}
           />
           {/* Overlay pour lisibilité du texte - léger pour voir l'image */}
@@ -496,7 +236,7 @@ export default function Home() {
             <span className="ornament" />
             <span className="text-[#d4a853] text-3xl">🐉</span>
             <span className="ornament" />
-          </div>
+        </div>
 
           {/* ✨ SUBTITLE AVEC TRADUCTION PROGRESSIVE RUNES -> TEXTE ✨ */}
           <div 
@@ -575,76 +315,6 @@ export default function Home() {
 
         {/* Bottom gradient fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0908] to-transparent" />
-      </section>
-
-      {/* ============================================ */}
-      {/* MAGIC SECTION - L'orbe, le dé 3D, les cercles */}
-      {/* ============================================ */}
-      <section className="relative py-32 px-6 overflow-hidden min-h-[80vh] flex items-center">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0908] via-[#0d0b09] to-[#0a0908]" />
-        
-        {/* ✨ EFFETS MAGIQUES */}
-        <MagicParticles />
-        <EmberParticles />
-        <MagicCircles />
-
-        {/* Decorative glows */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#9b4dff]/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#4a9eff]/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
-
-        <div className="relative z-10 max-w-6xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Orb and 3D Dice */}
-            <div className="flex flex-col items-center justify-center gap-16">
-              {/* Magic Orb */}
-              <MagicOrb />
-              
-              {/* 🎲 DÉ D20 3D */}
-              <D20Dice3D />
-            </div>
-
-            {/* Right side - Content */}
-            <div className="text-center lg:text-left">
-              <span className="inline-block px-4 py-2 rounded-full glass text-[#9b4dff] text-sm uppercase tracking-widest mb-6">
-                L&apos;essence du JDR
-              </span>
-              <h2 className="font-[var(--font-cinzel)] text-4xl md:text-5xl font-bold text-[#f5f1e8] mb-6">
-                La <span className="text-gradient-gold animate-shimmer inline-block">Magie</span> opère
-              </h2>
-              <p className="font-[var(--font-crimson)] text-xl text-[#f5f1e8]/80 mb-8 leading-relaxed">
-                Chaque lancer de dé peut changer le destin. Chaque décision ouvre de nouvelles possibilités. 
-                Dans nos parties, la <span className="text-[#9b4dff]">magie</span> n&apos;est pas que dans les sorts... 
-                elle est dans ces moments où tout le monde retient son souffle.
-              </p>
-              
-              {/* Features list */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 glass p-4 rounded-xl group hover:border-[#d4a853]/40 transition-all">
-                  <span className="text-2xl group-hover:animate-pulse-slow">🎲</span>
-                  <div>
-                    <h4 className="font-[var(--font-cinzel)] text-[#f5f1e8] font-semibold">Le hasard comme allié</h4>
-                    <p className="text-[#f5f1e8]/60 text-sm">Les dés créent des moments inoubliables</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 glass p-4 rounded-xl group hover:border-[#9b4dff]/40 transition-all">
-                  <span className="text-2xl group-hover:animate-pulse-slow">🔮</span>
-                  <div>
-                    <h4 className="font-[var(--font-cinzel)] text-[#f5f1e8] font-semibold">Immersion totale</h4>
-                    <p className="text-[#f5f1e8]/60 text-sm">Des ambiances sonores et visuelles travaillées</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4 glass p-4 rounded-xl group hover:border-[#4a9eff]/40 transition-all">
-                  <span className="text-2xl group-hover:animate-pulse-slow">⚡</span>
-                  <div>
-                    <h4 className="font-[var(--font-cinzel)] text-[#f5f1e8] font-semibold">Suspense garanti</h4>
-                    <p className="text-[#f5f1e8]/60 text-sm">Des rebondissements qui surprennent même le MJ</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* ============================================ */}
