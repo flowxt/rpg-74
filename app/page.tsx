@@ -449,50 +449,26 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0908]">
       {/* ============================================ */}
-      {/* HERO SECTION - Épuré avec runes flottantes */}
+      {/* HERO SECTION - Image épique fullscreen */}
       {/* ============================================ */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background layers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0908] via-[#1a1410] to-[#0a0908]" />
-        
-        {/* Animated background pattern */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a853' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+        {/* 🖼️ IMAGE DE FOND FULLSCREEN */}
+        <div className="absolute inset-0">
+          <Image
+            src="/image/jdr.png"
+            alt="Aventurier devant un château"
+            fill
+            className="object-cover object-center"
+            priority
+            quality={100}
+          />
+          {/* Overlay pour lisibilité du texte - léger pour voir l'image */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/40 to-transparent" />
+        </div>
 
-        {/* ✨ RUNES FLOTTANTES */}
+        {/* ✨ RUNES FLOTTANTES par dessus l'image */}
         <FloatingRunes />
         <LightMist />
-
-        {/* Radial glow effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-[#d4a853]/8 via-transparent to-transparent rounded-full blur-3xl" />
-        
-        {/* Dragon images */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/4 opacity-30 hover:opacity-50 transition-all duration-700 hover:scale-105">
-          <Image
-            src="/image/dragon.png"
-            alt="Dragon"
-            width={600}
-            height={600}
-            className="animate-float object-contain"
-            priority
-          />
-        </div>
-        
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 opacity-30 hover:opacity-50 transition-all duration-700 hover:scale-105">
-          <Image
-            src="/image/dragon1.png"
-            alt="Dragon"
-            width={600}
-            height={600}
-            className="animate-float object-contain"
-            style={{ animationDelay: '3s' }}
-            priority
-          />
-        </div>
 
         {/* Main content */}
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
